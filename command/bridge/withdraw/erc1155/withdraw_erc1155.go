@@ -57,7 +57,7 @@ func GetCommand() *cobra.Command {
 	withdrawCmd.Flags().StringVar(
 		&wp.TokenAddr,
 		common.ChildTokenFlag,
-		contracts.ChildERC1155Contract.String(),
+		"",
 		"ERC 1155 child chain token address",
 	)
 

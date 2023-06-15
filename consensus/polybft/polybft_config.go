@@ -94,6 +94,9 @@ type BridgeConfig struct {
 	RootERC20PredicateAddr            types.Address `json:"erc20PredicateAddress"`
 	ChildMintableERC20PredicateAddr   types.Address `json:"erc20ChildMintablePredicateAddress"`
 	RootNativeERC20Addr               types.Address `json:"nativeERC20Address"`
+	ERC20TemplateAddr                 types.Address `json:"erc20TemplateAddress"`
+	ERC721TemplateAddr                types.Address `json:"erc721TemplateAddress"`
+	ERC1155TemplateAddr               types.Address `json:"erc1155TemplateAddress"`
 	RootERC721Addr                    types.Address `json:"erc721Address"`
 	RootERC721PredicateAddr           types.Address `json:"erc721PredicateAddress"`
 	ChildMintableERC721PredicateAddr  types.Address `json:"erc721ChildMintablePredicateAddress"`
@@ -152,12 +155,15 @@ func (r *RootchainConfig) ToBridgeConfig() *BridgeConfig {
 		RootERC20PredicateAddr:            r.RootERC20PredicateAddress,
 		ChildMintableERC20PredicateAddr:   r.ChildMintableERC20PredicateAddress,
 		RootNativeERC20Addr:               r.RootNativeERC20Address,
+		ERC20TemplateAddr:                 r.ERC20TemplateAddress,
 		RootERC721Addr:                    r.RootERC721Address,
 		RootERC721PredicateAddr:           r.RootERC721PredicateAddress,
 		ChildMintableERC721PredicateAddr:  r.ChildMintableERC721PredicateAddress,
+		ERC721TemplateAddr:                r.ERC721TemplateAddress,
 		RootERC1155Addr:                   r.RootERC1155Address,
 		RootERC1155PredicateAddr:          r.RootERC1155PredicateAddress,
 		ChildMintableERC1155PredicateAddr: r.ChildMintableERC1155PredicateAddress,
+		ERC1155TemplateAddr:               r.ERC1155TemplateAddress,
 		CustomSupernetManagerAddr:         r.CustomSupernetManagerAddress,
 		StakeManagerAddr:                  r.StakeManagerAddress,
 		BLSAddress:                        r.BLSAddress,

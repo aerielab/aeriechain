@@ -302,7 +302,7 @@ func erc20BalanceOf(t *testing.T, account types.Address, tokenAddr types.Address
 func erc721OwnerOf(t *testing.T, tokenID *big.Int, tokenAddr types.Address, relayer txrelayer.TxRelayer) types.Address {
 	t.Helper()
 
-	ownerOfFn := &contractsapi.OwnerOfChildERC721Fn{TokenID: tokenID}
+	ownerOfFn := &contractsapi.OwnerOfERC721TokenTemplateFn{TokenID: tokenID}
 	ownerOfInput, err := ownerOfFn.EncodeAbi()
 	require.NoError(t, err)
 

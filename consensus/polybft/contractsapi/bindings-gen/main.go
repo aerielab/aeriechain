@@ -250,8 +250,8 @@ func main() {
 			},
 		},
 		{
-			"ChildERC1155",
-			gensc.ChildERC1155,
+			"ERC1155TokenTemplate",
+			gensc.ERC1155TokenTemplate,
 			false,
 			[]string{
 				"initialize",
@@ -327,8 +327,8 @@ func main() {
 			[]string{},
 		},
 		{
-			"ChildERC721",
-			gensc.ChildERC721,
+			"ERC721TokenTemplate",
+			gensc.ERC721TokenTemplate,
 			false,
 			[]string{
 				"initialize",

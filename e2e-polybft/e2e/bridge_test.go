@@ -533,7 +533,7 @@ func TestE2E_Bridge_ERC1155Transfer(t *testing.T) {
 
 	// check receivers balances got increased by deposited amount
 	for i, receiver := range receivers {
-		balanceOfFn := &contractsapi.BalanceOfChildERC1155Fn{
+		balanceOfFn := &contractsapi.BalanceOfERC1155TokenTemplateFn{
 			Account: types.StringToAddress(receiver),
 			ID:      big.NewInt(int64(i + 1)),
 		}

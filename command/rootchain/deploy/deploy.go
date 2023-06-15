@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"math/big"
 
 	"github.com/spf13/cobra"
 	"github.com/umbracle/ethgo"
@@ -53,6 +54,9 @@ var (
 
 	// consensusCfg contains consensus protocol configuration parameters
 	consensusCfg polybft.PolyBFTConfig
+
+	// chainConfig contains chain configuration, written in the genesis file
+	chainConfig *chain.Chain
 
 	// metadataPopulatorMap maps rootchain contract names to callback
 	// which populates appropriate field in the RootchainMetadata
@@ -329,13 +333,6 @@ func runCommand(cmd *cobra.Command, _ []string) {
 		Message: fmt.Sprintf("%s started... Rootchain JSON RPC address %s.", contractsDeploymentTitle, params.jsonRPCAddress),
 	})
 
-	chainConfig, err := chain.ImportFromFile(params.genesisPath)
-	if err != nil {
-		outputter.SetError(fmt.Errorf("failed to read chain configuration: %w", err))
-
-		return
-	}
-
 	client, err := jsonrpc.NewClient(params.jsonRPCAddress)
 	if err != nil {
 		outputter.SetError(fmt.Errorf("failed to initialize JSON RPC client for provided IP address: %s: %w",
@@ -390,6 +387,20 @@ func runCommand(cmd *cobra.Command, _ []string) {
 		rootchainCfg.StateSenderAddress: blockNum,
 	}
 	consensusCfg.SupernetID = supernetID
+
+	// deploy token templates contracts to the genesis
+	chainConfig.Genesis.Alloc[rootchainCfg.ERC20TemplateAddress] = &chain.GenesisAccount{
+		Balance: big.NewInt(0),
+		Code:    contractsapi.ERC20TokenTemplate.DeployedBytecode,
+	}
+	chainConfig.Genesis.Alloc[rootchainCfg.ERC721TemplateAddress] = &chain.GenesisAccount{
+		Balance: big.NewInt(0),
+		Code:    contractsapi.ERC721TokenTemplate.DeployedBytecode,
+	}
+	chainConfig.Genesis.Alloc[rootchainCfg.ERC1155TemplateAddress] = &chain.GenesisAccount{
+		Balance: big.NewInt(0),
+		Code:    contractsapi.ERC1155TokenTemplate.DeployedBytecode,
+	}
 
 	// write updated consensus configuration
 	chainConfig.Params.Engine[polybft.ConsensusName] = consensusCfg
@@ -511,7 +522,7 @@ func deployContracts(outputter command.OutputFormatter, client *jsonrpc.Client, 
 		},
 		{
 			name:     erc20TemplateName,
-			artifact: contractsapi.ChildERC20,
+			artifact: contractsapi.ERC20TokenTemplate,
 		},
 		{
 			name:     rootERC721PredicateName,
@@ -523,7 +534,7 @@ func deployContracts(outputter command.OutputFormatter, client *jsonrpc.Client, 
 		},
 		{
 			name:     erc721TemplateName,
-			artifact: contractsapi.ChildERC721,
+			artifact: contractsapi.ERC721TokenTemplate,
 		},
 		{
 			name:     rootERC1155PredicateName,
@@ -535,7 +546,7 @@ func deployContracts(outputter command.OutputFormatter, client *jsonrpc.Client, 
 		},
 		{
 			name:     erc1155TemplateName,
-			artifact: contractsapi.ChildERC1155,
+			artifact: contractsapi.ERC1155TokenTemplate,
 		},
 		{
 			name:     customSupernetManagerName,

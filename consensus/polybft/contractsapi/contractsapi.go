@@ -885,38 +885,38 @@ func (l *L2MintableTokenMappedEvent) ParseLog(log *ethgo.Log) (bool, error) {
 	return true, decodeEvent(RootMintableERC1155PredicateACL.Abi.Events["L2MintableTokenMapped"], log, l)
 }
 
-type InitializeChildERC1155Fn struct {
+type InitializeERC1155TokenTemplateFn struct {
 	RootToken_ types.Address `abi:"rootToken_"`
 	Uri_       string        `abi:"uri_"`
 }
 
-func (i *InitializeChildERC1155Fn) Sig() []byte {
-	return ChildERC1155.Abi.Methods["initialize"].ID()
+func (i *InitializeERC1155TokenTemplateFn) Sig() []byte {
+	return ERC1155TokenTemplate.Abi.Methods["initialize"].ID()
 }
 
-func (i *InitializeChildERC1155Fn) EncodeAbi() ([]byte, error) {
-	return ChildERC1155.Abi.Methods["initialize"].Encode(i)
+func (i *InitializeERC1155TokenTemplateFn) EncodeAbi() ([]byte, error) {
+	return ERC1155TokenTemplate.Abi.Methods["initialize"].Encode(i)
 }
 
-func (i *InitializeChildERC1155Fn) DecodeAbi(buf []byte) error {
-	return decodeMethod(ChildERC1155.Abi.Methods["initialize"], buf, i)
+func (i *InitializeERC1155TokenTemplateFn) DecodeAbi(buf []byte) error {
+	return decodeMethod(ERC1155TokenTemplate.Abi.Methods["initialize"], buf, i)
 }
 
-type BalanceOfChildERC1155Fn struct {
+type BalanceOfERC1155TokenTemplateFn struct {
 	Account types.Address `abi:"account"`
 	ID      *big.Int      `abi:"id"`
 }
 
-func (b *BalanceOfChildERC1155Fn) Sig() []byte {
-	return ChildERC1155.Abi.Methods["balanceOf"].ID()
+func (b *BalanceOfERC1155TokenTemplateFn) Sig() []byte {
+	return ERC1155TokenTemplate.Abi.Methods["balanceOf"].ID()
 }
 
-func (b *BalanceOfChildERC1155Fn) EncodeAbi() ([]byte, error) {
-	return ChildERC1155.Abi.Methods["balanceOf"].Encode(b)
+func (b *BalanceOfERC1155TokenTemplateFn) EncodeAbi() ([]byte, error) {
+	return ERC1155TokenTemplate.Abi.Methods["balanceOf"].Encode(b)
 }
 
-func (b *BalanceOfChildERC1155Fn) DecodeAbi(buf []byte) error {
-	return decodeMethod(ChildERC1155.Abi.Methods["balanceOf"], buf, b)
+func (b *BalanceOfERC1155TokenTemplateFn) DecodeAbi(buf []byte) error {
+	return decodeMethod(ERC1155TokenTemplate.Abi.Methods["balanceOf"], buf, b)
 }
 
 type InitializeRootERC721PredicateFn struct {
@@ -1126,38 +1126,38 @@ func (i *InitializeRootMintableERC721PredicateACLFn) DecodeAbi(buf []byte) error
 	return decodeMethod(RootMintableERC721PredicateACL.Abi.Methods["initialize"], buf, i)
 }
 
-type InitializeChildERC721Fn struct {
+type InitializeERC721TokenTemplateFn struct {
 	RootToken_ types.Address `abi:"rootToken_"`
 	Name_      string        `abi:"name_"`
 	Symbol_    string        `abi:"symbol_"`
 }
 
-func (i *InitializeChildERC721Fn) Sig() []byte {
-	return ChildERC721.Abi.Methods["initialize"].ID()
+func (i *InitializeERC721TokenTemplateFn) Sig() []byte {
+	return ERC721TokenTemplate.Abi.Methods["initialize"].ID()
 }
 
-func (i *InitializeChildERC721Fn) EncodeAbi() ([]byte, error) {
-	return ChildERC721.Abi.Methods["initialize"].Encode(i)
+func (i *InitializeERC721TokenTemplateFn) EncodeAbi() ([]byte, error) {
+	return ERC721TokenTemplate.Abi.Methods["initialize"].Encode(i)
 }
 
-func (i *InitializeChildERC721Fn) DecodeAbi(buf []byte) error {
-	return decodeMethod(ChildERC721.Abi.Methods["initialize"], buf, i)
+func (i *InitializeERC721TokenTemplateFn) DecodeAbi(buf []byte) error {
+	return decodeMethod(ERC721TokenTemplate.Abi.Methods["initialize"], buf, i)
 }
 
-type OwnerOfChildERC721Fn struct {
+type OwnerOfERC721TokenTemplateFn struct {
 	TokenID *big.Int `abi:"tokenId"`
 }
 
-func (o *OwnerOfChildERC721Fn) Sig() []byte {
-	return ChildERC721.Abi.Methods["ownerOf"].ID()
+func (o *OwnerOfERC721TokenTemplateFn) Sig() []byte {
+	return ERC721TokenTemplate.Abi.Methods["ownerOf"].ID()
 }
 
-func (o *OwnerOfChildERC721Fn) EncodeAbi() ([]byte, error) {
-	return ChildERC721.Abi.Methods["ownerOf"].Encode(o)
+func (o *OwnerOfERC721TokenTemplateFn) EncodeAbi() ([]byte, error) {
+	return ERC721TokenTemplate.Abi.Methods["ownerOf"].Encode(o)
 }
 
-func (o *OwnerOfChildERC721Fn) DecodeAbi(buf []byte) error {
-	return decodeMethod(ChildERC721.Abi.Methods["ownerOf"], buf, o)
+func (o *OwnerOfERC721TokenTemplateFn) DecodeAbi(buf []byte) error {
+	return decodeMethod(ERC721TokenTemplate.Abi.Methods["ownerOf"], buf, o)
 }
 
 type InitializeCustomSupernetManagerFn struct {

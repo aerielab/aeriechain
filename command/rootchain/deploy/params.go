@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/0xPolygon/polygon-edge/chain"
 	"github.com/0xPolygon/polygon-edge/consensus/polybft"
 )
 
@@ -35,8 +36,11 @@ func (ip *deployParams) validateFlags() error {
 		return fmt.Errorf("provided genesis path '%s' is invalid. Error: %w ", ip.genesisPath, err)
 	}
 
-	consensusCfg, err = polybft.LoadPolyBFTConfig(ip.genesisPath)
-	if err != nil {
+	if chainConfig, err = chain.ImportFromFile(ip.genesisPath); err != nil {
+		return fmt.Errorf("failed to load chain config %s: %w", ip.genesisPath, err)
+	}
+
+	if consensusCfg, err = polybft.GetPolyBFTConfig(chainConfig); err != nil {
 		return err
 	}
 

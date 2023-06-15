@@ -47,7 +47,7 @@ func main() {
 		},
 		{
 			"child/ChildERC20.sol",
-			"ChildERC20",
+			"ERC20TokenTemplate",
 		},
 		{
 			"child/ChildERC20Predicate.sol",
@@ -67,7 +67,7 @@ func main() {
 		},
 		{
 			"child/ChildERC721.sol",
-			"ChildERC721",
+			"ERC721TokenTemplate",
 		},
 		{
 			"child/ChildERC721Predicate.sol",
@@ -87,7 +87,7 @@ func main() {
 		},
 		{
 			"child/ChildERC1155.sol",
-			"ChildERC1155",
+			"ERC1155TokenTemplate",
 		},
 		{
 			"child/ChildERC1155Predicate.sol",

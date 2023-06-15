@@ -31,17 +31,17 @@ var (
 	NativeERC20                     *artifact.Artifact
 	NativeERC20Mintable             *artifact.Artifact
 	StateReceiver                   *artifact.Artifact
-	ChildERC20                      *artifact.Artifact
+	ERC20TokenTemplate              *artifact.Artifact
 	ChildERC20Predicate             *artifact.Artifact
 	ChildERC20PredicateACL          *artifact.Artifact
 	RootMintableERC20Predicate      *artifact.Artifact
 	RootMintableERC20PredicateACL   *artifact.Artifact
-	ChildERC721                     *artifact.Artifact
+	ERC721TokenTemplate             *artifact.Artifact
 	ChildERC721Predicate            *artifact.Artifact
 	ChildERC721PredicateACL         *artifact.Artifact
 	RootMintableERC721Predicate     *artifact.Artifact
 	RootMintableERC721PredicateACL  *artifact.Artifact
-	ChildERC1155                    *artifact.Artifact
+	ERC1155TokenTemplate            *artifact.Artifact
 	ChildERC1155Predicate           *artifact.Artifact
 	ChildERC1155PredicateACL        *artifact.Artifact
 	RootMintableERC1155Predicate    *artifact.Artifact
@@ -141,7 +141,7 @@ func init() {
 		log.Fatal(err)
 	}
 
-	ChildERC20, err = artifact.DecodeArtifact([]byte(ChildERC20Artifact))
+	ERC20TokenTemplate, err = artifact.DecodeArtifact([]byte(ERC20TokenTemplateArtifact))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -166,7 +166,7 @@ func init() {
 		log.Fatal(err)
 	}
 
-	ChildERC721, err = artifact.DecodeArtifact([]byte(ChildERC721Artifact))
+	ERC721TokenTemplate, err = artifact.DecodeArtifact([]byte(ERC721TokenTemplateArtifact))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -191,7 +191,7 @@ func init() {
 		log.Fatal(err)
 	}
 
-	ChildERC1155, err = artifact.DecodeArtifact([]byte(ChildERC1155Artifact))
+	ERC1155TokenTemplate, err = artifact.DecodeArtifact([]byte(ERC1155TokenTemplateArtifact))
 	if err != nil {
 		log.Fatal(err)
 	}

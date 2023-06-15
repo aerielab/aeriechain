@@ -41,6 +41,7 @@ func TestIntegratoin_PerformExit(t *testing.T) {
 	amount2 := big.NewInt(2)                    // amount of the second widrawal
 	bn256Addr := types.Address{2}               // bls contract
 	stateSenderAddr := types.Address{5}         // generic bridge contract on rootchain
+	childTokenTemplate := types.Address{7}
 
 	alloc := map[types.Address]*chain.GenesisAccount{
 		senderAddress:         {Balance: new(big.Int).Add(amount1, amount2)}, // give some ethers to sender
@@ -87,7 +88,7 @@ func TestIntegratoin_PerformExit(t *testing.T) {
 			NewStateSender:         stateSenderAddr,
 			NewExitHelper:          exitHelperContractAddress,
 			NewChildERC20Predicate: contracts.ChildERC20PredicateContract,
-			NewChildTokenTemplate:  contracts.ChildERC20Contract,
+			NewChildTokenTemplate:  childTokenTemplate,
 			NativeTokenRootAddress: contracts.NativeERC20TokenContract,
 		}).EncodeAbi()
 	}
