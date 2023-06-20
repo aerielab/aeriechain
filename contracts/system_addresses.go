@@ -20,10 +20,16 @@ var (
 	// L2StateSenderContract is an address of arbitrary message bridge sender
 	L2StateSenderContract = types.StringToAddress("0x1002")
 
+	// ChildERC20Contract is an address of bridgable ERC20 token contract on the child chain
+	ChildERC20Contract = types.StringToAddress("0x1003")
 	// ChildERC20PredicateContract is an address of child ERC20 predicate contract
 	ChildERC20PredicateContract = types.StringToAddress("0x1004")
+	// ChildERC721Contract is an address of bridgable ERC721 token contract on the child chain
+	ChildERC721Contract = types.StringToAddress("0x1005")
 	// ChildERC721PredicateContract is an address of child ERC721 predicate contract
 	ChildERC721PredicateContract = types.StringToAddress("0x1006")
+	// ChildERC1155Contract is an address of bridgable ERC1155 token contract on the child chain
+	ChildERC1155Contract = types.StringToAddress("0x1005")
 	// ChildERC1155PredicateContract is an address of child ERC1155 predicate contract
 	ChildERC1155PredicateContract = types.StringToAddress("0x1008")
 	// RootMintableERC20PredicateContract is an address of mintable ERC20 predicate

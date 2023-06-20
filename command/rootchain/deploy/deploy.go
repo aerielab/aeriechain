@@ -161,7 +161,7 @@ var (
 				NewStateSender:         config.StateSenderAddress,
 				NewExitHelper:          config.ExitHelperAddress,
 				NewChildERC20Predicate: contracts.ChildERC20PredicateContract,
-				NewChildTokenTemplate:  config.ERC20TemplateAddress,
+				NewChildTokenTemplate:  contracts.ChildERC20Contract,
 				NativeTokenRootAddress: nativeTokenRootAddr,
 			}
 
@@ -176,7 +176,7 @@ var (
 				NewStateSender:        config.StateSenderAddress,
 				NewExitHelper:         config.ExitHelperAddress,
 				NewRootERC20Predicate: contracts.RootMintableERC20PredicateContract,
-				NewChildTokenTemplate: config.ERC20TemplateAddress,
+				NewChildTokenTemplate: contracts.ChildERC20Contract,
 			}
 
 			return initContract(fmt, relayer, initParams,
@@ -190,7 +190,7 @@ var (
 				NewStateSender:          config.StateSenderAddress,
 				NewExitHelper:           config.ExitHelperAddress,
 				NewChildERC721Predicate: contracts.ChildERC721PredicateContract,
-				NewChildTokenTemplate:   config.ERC721TemplateAddress,
+				NewChildTokenTemplate:   contracts.ChildERC721Contract,
 			}
 
 			return initContract(fmt, relayer, initParams,
@@ -204,7 +204,7 @@ var (
 				NewStateSender:         config.StateSenderAddress,
 				NewExitHelper:          config.ExitHelperAddress,
 				NewRootERC721Predicate: contracts.RootMintableERC721PredicateContract,
-				NewChildTokenTemplate:  config.ERC721TemplateAddress,
+				NewChildTokenTemplate:  contracts.ChildERC721Contract,
 			}
 
 			return initContract(fmt, relayer, initParams,
@@ -218,7 +218,7 @@ var (
 				NewStateSender:           config.StateSenderAddress,
 				NewExitHelper:            config.ExitHelperAddress,
 				NewChildERC1155Predicate: contracts.ChildERC1155PredicateContract,
-				NewChildTokenTemplate:    config.ERC1155TemplateAddress,
+				NewChildTokenTemplate:    contracts.ChildERC1155Contract,
 			}
 
 			return initContract(fmt, relayer, initParams,
@@ -232,7 +232,7 @@ var (
 				NewStateSender:          config.StateSenderAddress,
 				NewExitHelper:           config.ExitHelperAddress,
 				NewRootERC1155Predicate: contracts.RootMintableERC1155PredicateContract,
-				NewChildTokenTemplate:   config.ERC1155TemplateAddress,
+				NewChildTokenTemplate:   contracts.ChildERC1155Contract,
 			}
 
 			return initContract(fmt, relayer, initParams,
@@ -389,15 +389,15 @@ func runCommand(cmd *cobra.Command, _ []string) {
 	consensusCfg.SupernetID = supernetID
 
 	// deploy token templates contracts to the genesis
-	chainConfig.Genesis.Alloc[rootchainCfg.ERC20TemplateAddress] = &chain.GenesisAccount{
+	chainConfig.Genesis.Alloc[contracts.ChildERC20Contract] = &chain.GenesisAccount{
 		Balance: big.NewInt(0),
 		Code:    contractsapi.ERC20TokenTemplate.DeployedBytecode,
 	}
-	chainConfig.Genesis.Alloc[rootchainCfg.ERC721TemplateAddress] = &chain.GenesisAccount{
+	chainConfig.Genesis.Alloc[contracts.ChildERC721Contract] = &chain.GenesisAccount{
 		Balance: big.NewInt(0),
 		Code:    contractsapi.ERC721TokenTemplate.DeployedBytecode,
 	}
-	chainConfig.Genesis.Alloc[rootchainCfg.ERC1155TemplateAddress] = &chain.GenesisAccount{
+	chainConfig.Genesis.Alloc[contracts.ChildERC1155Contract] = &chain.GenesisAccount{
 		Balance: big.NewInt(0),
 		Code:    contractsapi.ERC1155TokenTemplate.DeployedBytecode,
 	}
@@ -532,10 +532,10 @@ func deployContracts(outputter command.OutputFormatter, client *jsonrpc.Client, 
 			name:     childERC721MintablePredicateName,
 			artifact: contractsapi.ChildMintableERC721Predicate,
 		},
-		{
-			name:     erc721TemplateName,
-			artifact: contractsapi.ERC721TokenTemplate,
-		},
+		// {
+		// 	name:     erc721TemplateName,
+		// 	artifact: contractsapi.ERC721TokenTemplate,
+		// },
 		{
 			name:     rootERC1155PredicateName,
 			artifact: contractsapi.RootERC1155Predicate,
