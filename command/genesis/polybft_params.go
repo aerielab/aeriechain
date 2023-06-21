@@ -167,6 +167,20 @@ func (p *genesisParams) generatePolyBftChainConfig(o command.OutputFormatter) er
 		enabledForks.SetFork(chain.London, nil)
 	}
 
+	(*enabledForks)[chain.Dummy1] = &chain.Fork{
+		Block: 10,
+		Params: &chain.ForkParams{
+			MaxValidatorSetSize: 30,
+		},
+	}
+
+	(*enabledForks)[chain.Dummy2] = &chain.Fork{
+		Block: 20,
+		Params: &chain.ForkParams{
+			MaxValidatorSetSize: 25,
+		},
+	}
+
 	chainConfig := &chain.Chain{
 		Name: p.name,
 		Params: &chain.Params{

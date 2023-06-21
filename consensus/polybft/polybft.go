@@ -17,6 +17,7 @@ import (
 	"github.com/0xPolygon/polygon-edge/consensus/polybft/validator"
 	"github.com/0xPolygon/polygon-edge/consensus/polybft/wallet"
 	"github.com/0xPolygon/polygon-edge/contracts"
+	"github.com/0xPolygon/polygon-edge/forkmanager"
 	"github.com/0xPolygon/polygon-edge/helper/common"
 	"github.com/0xPolygon/polygon-edge/helper/progress"
 	"github.com/0xPolygon/polygon-edge/network"
@@ -735,4 +736,13 @@ func (p *Polybft) GetBridgeProvider() consensus.BridgeDataProvider {
 // Filters extra data to not contain Committed field
 func (p *Polybft) FilterExtra(extra []byte) ([]byte, error) {
 	return GetIbftExtraClean(extra)
+}
+
+func init() {
+	// for tests
+	forkmanager.GetInstance().RegisterFork(forkmanager.InitialFork, &chain.ForkParams{
+		MaxValidatorSetSize: 100,
+	})
+
+	_ = forkmanager.GetInstance().ActivateFork(forkmanager.InitialFork, 0)
 }

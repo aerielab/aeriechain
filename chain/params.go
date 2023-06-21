@@ -86,6 +86,8 @@ const (
 	EIP150         = "EIP150"
 	EIP158         = "EIP158"
 	EIP155         = "EIP155"
+	Dummy1         = "Dummy1"
+	Dummy2         = "Dummy2"
 )
 
 // Forks is map which contains all forks and their starting blocks from genesis
@@ -115,6 +117,8 @@ func (f *Forks) At(block uint64) ForksInTime {
 		EIP150:         f.IsActive(EIP150, block),
 		EIP158:         f.IsActive(EIP158, block),
 		EIP155:         f.IsActive(EIP155, block),
+		Dummy1:         f.IsActive(Dummy1, block),
+		Dummy2:         f.IsActive(Dummy2, block),
 	}
 }
 
@@ -164,7 +168,8 @@ type ForksInTime struct {
 	London,
 	EIP150,
 	EIP158,
-	EIP155 bool
+	EIP155,
+	Dummy1, Dummy2 bool
 }
 
 // AllForksEnabled should contain all supported forks by current edge version
@@ -178,4 +183,6 @@ var AllForksEnabled = &Forks{
 	Petersburg:     NewFork(0),
 	Istanbul:       NewFork(0),
 	London:         NewFork(0),
+	Dummy1:         NewFork(0),
+	Dummy2:         NewFork(0),
 }

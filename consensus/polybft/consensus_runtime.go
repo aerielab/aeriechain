@@ -14,6 +14,7 @@ import (
 	"github.com/0xPolygon/polygon-edge/consensus/polybft/validator"
 	"github.com/0xPolygon/polygon-edge/consensus/polybft/wallet"
 	"github.com/0xPolygon/polygon-edge/contracts"
+	"github.com/0xPolygon/polygon-edge/forkmanager"
 	"github.com/0xPolygon/polygon-edge/txrelayer"
 	"github.com/0xPolygon/polygon-edge/types"
 
@@ -231,7 +232,6 @@ func (c *consensusRuntime) initStakeManager(logger hcf.Logger) error {
 		contracts.ValidatorSetContract,
 		c.config.PolyBFTConfig.Bridge.CustomSupernetManagerAddr,
 		c.config.blockchain,
-		int(c.config.PolyBFTConfig.MaxValidatorSetSize),
 	)
 
 	return nil
@@ -391,7 +391,12 @@ func (c *consensusRuntime) FSM() error {
 			return fmt.Errorf("cannot calculate commit epoch info: %w", err)
 		}
 
-		ff.newValidatorsDelta, err = c.stakeManager.UpdateValidatorSet(epoch.Number, epoch.Validators.Copy())
+		maxValidatorSetSize := int(forkmanager.GetInstance().GetParams(parent.Number).MaxValidatorSetSize)
+
+		c.logger.Warn("max validator set size value for block", "value", maxValidatorSetSize, "block", parent.Number)
+
+		ff.newValidatorsDelta, err = c.stakeManager.UpdateValidatorSet(
+			epoch.Number, epoch.Validators.Copy(), maxValidatorSetSize)
 		if err != nil {
 			return fmt.Errorf("cannot update validator set on epoch ending: %w", err)
 		}

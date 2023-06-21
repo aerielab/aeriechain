@@ -62,9 +62,8 @@ func FuzzTestStakeManagerPostEpoch(f *testing.F) {
 
 	f.Fuzz(func(t *testing.T, input []byte) {
 		stakeManager := &stakeManager{
-			logger:              hclog.NewNullLogger(),
-			state:               state,
-			maxValidatorSetSize: 10,
+			logger: hclog.NewNullLogger(),
+			state:  state,
 		}
 
 		var data epochIDValidatorsF
@@ -155,7 +154,6 @@ func FuzzTestStakeManagerPostBlock(f *testing.F) {
 			types.StringToAddress("0x0001"),
 			types.StringToAddress("0x0002"),
 			nil,
-			5,
 		)
 
 		// insert initial full validator set
@@ -202,7 +200,6 @@ func FuzzTestStakeManagerUpdateValidatorSet(f *testing.F) {
 		wallet.NewEcdsaSigner(validators.GetValidator("A").Key()),
 		types.StringToAddress("0x0001"), types.StringToAddress("0x0002"),
 		nil,
-		10,
 	)
 
 	seeds := []updateValidatorSetF{
@@ -250,14 +247,14 @@ func FuzzTestStakeManagerUpdateValidatorSet(f *testing.F) {
 			Validators: newValidatorStakeMap(validators.GetPublicIdentities())})
 		require.NoError(t, err)
 
-		_, err = stakeManager.UpdateValidatorSet(data.EpochID, validators.GetPublicIdentities(aliases[data.Index:]...))
+		_, err = stakeManager.UpdateValidatorSet(data.EpochID, validators.GetPublicIdentities(aliases[data.Index:]...), 10)
 		require.NoError(t, err)
 
 		fullValidatorSet := validators.GetPublicIdentities().Copy()
 		validatorToUpdate := fullValidatorSet[data.Index]
 		validatorToUpdate.VotingPower = big.NewInt(data.VotingPower)
 
-		_, err = stakeManager.UpdateValidatorSet(data.EpochID, validators.GetPublicIdentities())
+		_, err = stakeManager.UpdateValidatorSet(data.EpochID, validators.GetPublicIdentities(), 10)
 		require.NoError(t, err)
 	})
 }
